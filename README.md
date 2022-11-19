@@ -1,5 +1,5 @@
 # Terraform Tech Talk
 
-Read the [wiki](https://confluence.apptio.com/display/~psharma/Terraform+Tech+Talk) here.
+[Refer my talk on Youtube](https://www.youtube.com/watch?v=LLGB26mW7zo)
 
 This repository contains example code used in my Terraform tech talk.
