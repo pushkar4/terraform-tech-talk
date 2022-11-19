@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Rds stack deployment template
+Parameters:
+  DBInstanceIdentifier:
+    Description: The DBInstanceIdentifier
+    Type: String
+  RdsAllocatedStorage:
+    Description: Rds storage size in GB
+    Type: Number
+    Default: 5
+  RdsEngineVersion:
+    Description: The engine version for the Rds instance
+    Type: String
+    Default: "5.7"
+  RdsInstanceClass:
+    Description: Rds instance class
+    Type: String
+    Default: "db.t2.micro"
+  StorageType:
+    Description: The RDS storage type.
+    Type: String
+    Default: standard
+Resources:
+  RdsInstance:
+    Type: "AWS::RDS::DBInstance"
+    Properties:
+      AllocatedStorage: !Ref RdsAllocatedStorage
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: false
+      BackupRetentionPeriod: 0
+      CopyTagsToSnapshot: true
+      DBInstanceClass: !Ref RdsInstanceClass
+      DBInstanceIdentifier: !Ref DBInstanceIdentifier
+      DBParameterGroupName: default.mysql5.7
+      Engine: MySQL
+      EngineVersion: !Ref RdsEngineVersion
+      MasterUsername: admin
+      MasterUserPassword: simplepassword
+      Port: 3306
+      PubliclyAccessible: false
+      StorageType: !Ref StorageType
+Outputs:
+  RdsHost:
+    Description: RDS host address
+    Value: !GetAtt RdsInstance.Endpoint.Address
+  RdsInstanceIdentifier:
+    Description: RDS instance identifier
+    Value: !Ref RdsInstance
+  RdsPort:
+    Description: RDS instance port
+    Value: !GetAtt RdsInstance.Endpoint.Port
